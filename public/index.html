@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" > 
+    <head> 
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>registration Form</title>
+        <style>
+            
+    
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+           
+            body{
+                background-image: url('knls.jpg') ;
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                color: rgb(10, 243, 235);
+                margin: 8px;
+                height: 100vh;
+                display:flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+                position: relative;
+                font-family: sans-serif;
+                
+            }
+            .background-overlay {
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background-image: url('knls.jpg');
+              background-size: cover;
+              background-position: center;
+              background-repeat: no-repeat;
+              filter: brightness(0.4)blur(5px);
+              z-index: -1;
+
+            }
+            .container{
+                display: flex;
+                flex-direction: column;
+                width: 300px;
+                padding: 15;
+                border: 2px solid skyblue;
+                border-radius: 5px;
+            }
+            input{
+                margin: 20px 15px;
+                height: 35px;
+                padding: 7px;
+                font-style: italic;
+                font-weight: 100;
+                font-size: medium;
+               
+                
+
+
+            }
+            
+            
+            button{
+                height: 35px;
+                margin: 5px 10px;
+                background-color: skyblue;
+                border: none;
+                border-radius: 5px;
+                color: black;
+
+            }
+            button:hover{
+                background-color: #333;
+                color: skyblue;
+                transform: scalex(1);
+                transition: 1s;
+            }
+            h2{
+                color: rgb(8, 139, 190);
+                font-style: oblique;
+            }
+           
+  .modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+  background-color: #f0fff0;
+  margin: 15% auto;
+  padding: 20px;
+  border: 2px solid #00cc99;
+  width: 80%;
+  max-width: 400px;
+  text-align: center;
+  color: green;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  animation: fadein 0.3s ease;
+}
+
+.close {
+  float: right;
+  font-size: 24px;
+  cursor: pointer;
+}
+.logo-container {
+  position: absolute;
+  top: 10px;
+  left: 50px;
+}
+
+.logo {
+  width: 150px;
+  height: auto;
+  
+}
+.form-footer {
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  color: #f1efef;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+               
+            
+
+
+        </style>
+        
+
+    </head>
+    
+<body>
+  <div class="background-overlay"></div>
+  <div class="logo-container">
+    <img src="library.png" alt="Logo" class="logo">
+  </div>
+  <footer class="form-footer">
+    <p>@Edited by Yohan</p> <!-- Change name as needed -->
+  </footer>
+  
+  
+     
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p>✅ Registration Successful!</p>
+        </div>
+      </div>
+      <div id="errorModal" class="modal">
+        <div class="modal-content">
+          <span class="close-error">&times;</span>
+          <p id="errorText">❌ An error occurred.</p>
+        </div>
+      </div>
+      
+ 
+  
+    
+    <div>
+        
+        <script>
+            //show the success message in your html
+            const urlParams = new URLSearchParams(window.location.search);
+            const success = urlParams.get('success');
+            const modal = document.getElementById('successModal');
+            const closeBtn = document.querySelector('.close');
+            const error = urlParams.get('error');
+
+            if (success) {
+                modal.style.display = 'block';
+
+                // Clean up URL without reload
+                setTimeout(() => {
+      modal.style.display = 'none';
+      const url = new URL(window.location);
+      url.searchParams.delete('success');
+      window.history.replaceState({}, document.title, url.pathname);
+    }, 3000);
+}
+closeBtn.onclick = function() {
+    modal.style.display = 'none';
+  }
+
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  }
+
+            if (error) {
+                errorModal.style.display = 'block';
+                errorText.textContent = '❌ ' + decodeURIComponent(error);
+              setTimeout(() => {
+      errorModal.style.display = 'none';
+      const url = new URL(window.location);
+      url.searchParams.delete('error');
+      window.history.replaceState({}, document.title, url.pathname);
+    }, 5000);
+            }
+            
+         
+          </script>
+
+        <h2>REGISTRATION FORM</h2><br/>
+        <form action="/register" method="POST">
+    <div class="container" >
+        
+          
+
+        <input type="text" name="firstname" placeholder="Firstname" required>
+        <input type="text" name="secondname" placeholder="Secondname" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="tel" name="phone" id="phone" placeholder="Phone" required>
+        <input type="text" name="idno" id="idno" placeholder="ID no" required>        
+        <button type="submit">SUBMIT</button>
+   
+        </div>
+        <script>
+            const form = document.querySelector('form');
+            const phoneInput = document.getElementById('phone');
+            const idInput = document.getElementById('idno');
+          
+            form.addEventListener('submit', function(event) {
+              const phone = phoneInput.value.trim();
+              const idno = idInput.value.trim();
+          
+              // Check if starts with 07 or +254
+              const startsWithValid = phone.startsWith('07') || phone.startsWith('+254');
+          
+              // Check if it's all digits and 10 characters after 07
+              const plainPhone = phone.startsWith('+254') ? phone.replace('+254', '0') : phone;
+              const isValidLength = plainPhone.length === 10;
+              const isDigitsOnly = /^\d+$/.test(plainPhone);
+          
+              if (!startsWithValid || !isValidLength || !isDigitsOnly) {
+                event.preventDefault();
+                alert("📵 Invalid phone number!\nMust start with '07' or '+254' and be exactly 10 digits long.");
+              }
+     if (!isValidID) {
+    event.preventDefault();
+    alert("🪪 Invalid ID number! Must be exactly 8 digits.");
+    return;
+  }
+            });
+          </script>
+          
+    </form>
+    </div>
+        
+
+</body>
+
+</html>
